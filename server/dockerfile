@@ -1,8 +1,7 @@
 FROM python:3.10.2
 LABEL maintainer="koyagabriel@gmail.com"
-WORKDIR /var/www
-COPY requirements.txt /var/www
+WORKDIR /var/www/server
+COPY requirements.txt /var/www/server
 RUN pip install -r requirements.txt
-COPY . /var/www
-ENTRYPOINT ["python", "manage.py", "runserver"]
-CMD ["0.0.0.0:8000"]
+COPY . /var/www/server
+ENTRYPOINT ["bash", "./server.sh"]
