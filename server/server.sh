@@ -14,5 +14,8 @@ python manage.py makemigrations
 echo "Running migration files"
 python manage.py migrate
 
+echo "Seeding sample data"
+python manage.py seed
+
 echo "Starting server"
 python manage.py runserver 0.0.0.0:8000

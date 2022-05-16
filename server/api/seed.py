@@ -62,5 +62,5 @@ def seed_sample_usages(user, list_usage_types):
 
 
 def main():
-    # seed_usage_types()
+    seed_usage_types()
     seed_sample_users_with_usages()
