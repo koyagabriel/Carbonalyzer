@@ -6,12 +6,12 @@ from api.models.user import User
 
 class UsersCreateView(CreateAPIView):
     serializer_class = UserSerializer
-    queryset = User.objects.not_deleted()
+    queryset = User.not_deleted()
 
 
 class UserProfileView(RetrieveAPIView):
     serializer_class = UserSerializer
-    queryset = User.objects.not_deleted()
+    queryset = User.not_deleted()
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
@@ -20,7 +20,7 @@ class UserProfileView(RetrieveAPIView):
 
 class UserProfileUpdateView(UpdateAPIView):
     serializer_class = UpdateUserProfileSerializer
-    queryset = User.objects.not_deleted()
+    queryset = User.not_deleted()
     permission_classes = [IsAuthenticated]
 
     def get_object(self):

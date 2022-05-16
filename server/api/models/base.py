@@ -1,16 +1,5 @@
-from django.db.models import (
-    Model, DateTimeField, BooleanField, Manager
-)
+from django.db.models import (Model, DateTimeField, BooleanField)
 from django.utils import timezone
-
-
-class BaseManager(Manager):
-
-    def not_deleted(self):
-        return self.get_queryset().filter(deleted=False)
-
-    def deleted(self):
-        return self.get_queryset().filter(deleted=True)
 
 
 class BaseModel(Model):
@@ -24,3 +13,7 @@ class BaseModel(Model):
     def save(self, *args, **kwargs):
         self.updated_at = timezone.now()
         super().save(*args, **kwargs)
+
+    @classmethod
+    def not_deleted(cls):
+        return cls.objects.all().filter(deleted=False)

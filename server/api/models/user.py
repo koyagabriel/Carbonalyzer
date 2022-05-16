@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import (EmailField, CharField)
-from .base import BaseModel, BaseManager
+from .base import BaseModel
 
 
 class User(AbstractUser, BaseModel):
@@ -9,7 +9,6 @@ class User(AbstractUser, BaseModel):
     first_name = CharField(max_length=150, blank=False)
     last_name = CharField(max_length=150, blank=False)
 
-    objects = BaseManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
