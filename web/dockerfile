@@ -1,0 +1,8 @@
+from node:18.1.0
+LABEL maintainer="koyagabriel@gmail.com"
+WORKDIR /var/www/web
+COPY package*.json /var/www/web
+RUN npm install --force
+COPY . /var/www/web
+ENTRYPOINT ["npm", "run", "dev"]
+
