@@ -4,19 +4,32 @@ services:
     image: postgres
     container_name: carbon_db
     env_file:
-      - .env
+      - ./server/.env
     ports:
-      - "5432:5432"
+      - "${SERVER_BIND_PORT:-5432}:5432"
 
   api:
     build: ./server
     container_name: carbon_api
     env_file:
-      - .env
+      - ./server/.env
     depends_on:
       - db
     ports:
       - "${SERVER_BIND_PORT:-8000}:8000"
     volumes:
       - "./server:/var/www/server"
+
+#  web:
+#    build: ./web
+#    container_name: carbon_web
+#    env_file:
+#      - ./web/.env.local
+#    depends_on:
+#      - db
+#      - api
+#    ports:
+#      - "${SERVER_BIND_PORT:-9000}:3000"
+#    volumes:
+#      - "./web:/var/www/web"
 
