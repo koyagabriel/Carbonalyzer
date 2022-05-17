@@ -19,6 +19,10 @@
 6. Visit the route `http://localhost:8000/swagger/` to view the API documentation. 
 7. Note that the port in the url is based on the predefined value set in .env. Update the port in the url accordingly if changes were made to `.env`.
 
+
+### Starting the API Server (web)
+The web app is not full ready. Finalizing some components.
+
 ####Note: 
 Implemented soft delete for the resources.
 
