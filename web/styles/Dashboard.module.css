@@ -1,0 +1,9 @@
+.layout, .header, .content {
+  background-color: white;
+}
+.content {
+  margin: 20px 50px;
+}
+.tabpane {
+  padding: 20px 50px ;
+}
