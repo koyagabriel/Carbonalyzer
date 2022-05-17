@@ -28,6 +28,7 @@ def seed_sample_users_with_usages():
         master_sample_user.set_password(sample_password)
         master_sample_user.save()
         seed_sample_usages(master_sample_user, usage_types)
+        print("Created user email: {0}, password: {1}".format("carbon@dioxide.com", sample_password))
     except Exception:
         pass
 
