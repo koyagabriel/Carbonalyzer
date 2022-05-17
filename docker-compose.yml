@@ -20,6 +20,9 @@ services:
     volumes:
       - "./server:/var/www/server"
 
+# StillFinalizing the web app components, so I am commenting out the web service
+# to avoid errors when spinning up other services.
+
 #  web:
 #    build: ./web
 #    container_name: carbon_web
