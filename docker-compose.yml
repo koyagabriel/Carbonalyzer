@@ -6,7 +6,7 @@ services:
     env_file:
       - ./server/.env
     ports:
-      - "${SERVER_BIND_PORT:-5432}:5432"
+      - "${DB_BIND_PORT:-5432}:5432"
 
   api:
     build: ./server
