@@ -21,9 +21,9 @@
 
 
 ### Starting the API Server (web)
-The web app is not full ready. Finalizing some components.
+The web app is not full ready.  Finalizing some components.
 
-####Note: 
+#### Note: 
 Implemented soft delete for the resources.
 
 ### Developer
