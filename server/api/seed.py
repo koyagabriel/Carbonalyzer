@@ -54,7 +54,7 @@ def seed_sample_users_with_usages():
 def seed_sample_usages(user, list_usage_types):
 
     for usage_typ in list_usage_types:
-        for _ in range(1000):
+        for _ in range(200):
             Usage(user=user,
                   usage_type=usage_typ,
                   amount=fake.pyfloat(left_digits=2, right_digits=3, positive=True),
