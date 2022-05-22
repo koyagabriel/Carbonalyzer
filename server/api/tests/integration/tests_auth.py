@@ -62,3 +62,25 @@ class TestRegistration(APITestCase):
         response = self.register(user_data)
 
         self.assertEqual(response.json()['username'], user_data['email'])
+
+
+class TestLogin(APITestCase):
+
+    def test_login_with_right_credentials(self):
+        user = UserFactory.build()
+        user.set_password("password")
+        user.save()
+        login_data = {'email': user.email, 'password': 'password'}
+        response = self.client.post(reverse('token'), login_data, format='json')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('access' in response.json())
+        self.assertRegexpMatches(response.json()['access'], r"\w.\w.\w")
+
+    def test_login_with_wrong_credentials(self):
+        login_data = {'email': "wrong@email.com",  'password': 'wrong_password'}
+        response = self.client.post(reverse('token'), login_data, format='json')
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()['detail'], 'No active account found with the given credentials')
+
