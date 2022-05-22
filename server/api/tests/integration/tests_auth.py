@@ -70,6 +70,7 @@ class TestLogin(APITestCase):
         user = UserFactory.build()
         user.set_password("password")
         user.save()
+
         login_data = {'email': user.email, 'password': 'password'}
         response = self.client.post(reverse('token'), login_data, format='json')
 
@@ -83,4 +84,29 @@ class TestLogin(APITestCase):
 
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()['detail'], 'No active account found with the given credentials')
+
+    def test_login_of_deactivated_account(self):
+        user = UserFactory.build()
+        user.set_password("password")
+        user.is_active = False
+        user.save()
+
+        login_data = {'email': user.email, 'password': 'password'}
+        response = self.client.post(reverse('token'), login_data, format='json')
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()['detail'], 'No active account found with the given credentials')
+
+    def test_login_of_active_deleted_account(self):
+        user = UserFactory.build()
+        user.set_password("password")
+        user.deleted = True
+        user.save()
+
+        login_data = {'email': user.email, 'password': 'password'}
+        response = self.client.post(reverse('token'), login_data, format='json')
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()['detail'], 'No active account found with the given credentials')
+
 
