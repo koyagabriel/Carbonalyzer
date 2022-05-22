@@ -97,7 +97,7 @@ class TestLogin(APITestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()['detail'], 'No active account found with the given credentials')
 
-    def test_login_of_active_deleted_account(self):
+    def test_login_of_active_but_deleted_account(self):
         user = UserFactory.build()
         user.set_password("password")
         user.deleted = True
