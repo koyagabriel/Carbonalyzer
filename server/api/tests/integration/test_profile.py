@@ -20,10 +20,32 @@ class TestProfile(APITestCase):
     def setUp(self):
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.access_token}")
 
+    def get_profile(self):
+        return self.client.get(reverse('user_profile'), format='json')
+
     def test_get_user_profile(self):
-        response = self.client.get(reverse('user_profile'), format='json')
+        response = self.get_profile()
+
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['email'], self.user.email)
+
+    def test_get_user_profile_for_deleted_account(self):
+        self.user.deleted = True
+        self.user.is_active = True
+        self.user.save()
+        response = self.get_profile()
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()['detail'], 'User not found')
+
+    def test_get_user_profile_for_deactivated_account(self):
+        self.user.is_active = False
+        self.user.deleted = False
+        self.user.save()
+        response = self.get_profile()
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()['detail'], 'User is inactive')
 
     def test_user_profile_update(self):
         update_params = {'first_name': 'New firstname', 'last_name': 'New lastname'}
